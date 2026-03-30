@@ -4,4 +4,3 @@ requests
 pandas
 yfinance
 python-telegram-bot
-sqlite3
