@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: gold-sniper-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn start:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 --preload
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: WEBHOOK_SECRET
+        value: gold_sniper_v2_secret
+      - key: GAINZALGO_SECRET
+        sync: false
+      - key: LUXALGO_SECRET
+        sync: false
+      - key: SUPERTREND_SECRET
+        sync: false
+      - key: KEEP_ALIVE_ENABLED
+        value: "true"
+      - key: KEEP_ALIVE_URL
+        sync: false
+      - key: ENABLE_TRADING_HOURS
+        value: "true"
+      - key: TRADING_START_HOUR
+        value: "7"
+      - key: TRADING_END_HOUR
+        value: "20"
+      - key: NEWS_FILTER_ENABLED
+        value: "true"
+      - key: PRICE_SOURCE
+        value: yfinance
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+    healthCheckPath: /health
+    autoDeploy: true
